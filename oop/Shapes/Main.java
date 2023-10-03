@@ -3,13 +3,12 @@ package Shapes;
 public class Main {
     public static void main(String[] args) {
 
-        Shape shape = new Shape("red");
-        Shape rectangle = new Rectangle("red", 10, 10);
-        Shape triangle = new Triangle("red", 10, 10);
-
-        getArea(shape);
-        getArea(rectangle);
-        getArea(triangle);
+        Shape s = new Shape("red");
+        getArea(s);
+        s = new Rectangle("red", 10, 10);
+        getArea(s);
+        s = new Triangle("red", 10, 10);
+        getArea(s);
 
     }
 
