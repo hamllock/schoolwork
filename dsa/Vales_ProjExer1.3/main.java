@@ -1,18 +1,17 @@
 import java.util.*;
 import java.io.*;
-import java.lang.*;
 
 public class main {
 	public static void main(String[] args) {
 		ArrayList<Student> studentInfo = new ArrayList<>();
-		
+
 		try {
 			FileReader fr = new FileReader("student.txt");
 			Scanner sc = new Scanner(fr);
 
-			while(sc.hasNextLine()) {
+			while (sc.hasNextLine()) {
 				String studentID = sc.nextLine();
-				String lastName = sc.nextLine();	
+				String lastName = sc.nextLine();
 				String firstName = sc.nextLine();
 				char gender = sc.nextLine().charAt(0);
 				String course = sc.nextLine();
@@ -25,11 +24,12 @@ public class main {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		studentInfo.sort(Comparator.comparing(Student::getCourse).thenComparing(Student::getLastname).thenComparing(Student::getFirstname));
 
-		for (Student display : studentInfo) display.display();
-			
+		studentInfo.sort(Comparator.comparing(Student::getCourse).thenComparing(Student::getLastname)
+				.thenComparing(Student::getFirstname));
+
+		for (Student display : studentInfo)
+			display.display();
+
 	}
 }
-
