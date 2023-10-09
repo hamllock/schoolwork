@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Main {
+public class Vales_Converter {
     public static void main(String[] args) {
 
         String[] arr = {
