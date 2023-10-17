@@ -16,6 +16,6 @@ public class Circle implements GetArea {
     }
 
     public String toString() {
-        return "Circle area is " + getArea();
+        return "Area of the circle is: " + getArea();
     }
 }

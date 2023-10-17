@@ -17,7 +17,7 @@ public class Rectangle implements GetArea {
     }
 
     public String toString() {
-        return "Rectangle area is " + getArea();
+        return "Area of the rectangle is: " + getArea();
     }
 
 }

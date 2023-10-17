@@ -27,10 +27,10 @@ public class Main {
         Triangle triangle = new Triangle(base, height);
         Circle circle = new Circle(radius);
 
-        System.out.println("Area of the rectangle is: " + rectangle.getArea());
-        System.out.println("Area of the square is: " + square.getArea());
-        System.out.println("Area of the triangle is: " + triangle.getArea());
-        System.out.println("Area of the circle is: " + circle.getArea());
+        System.out.println(rectangle.toString());
+        System.out.println(square.toString());
+        System.out.println(triangle.toString());
+        System.out.println(circle.toString());
 
         sc.close();
     }

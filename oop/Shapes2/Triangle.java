@@ -17,6 +17,6 @@ public class Triangle implements GetArea {
     }
 
     public String toString() {
-        return "Triangle area is " + getArea();
+        return "Area of the triangle is: " + getArea();
     }
 }

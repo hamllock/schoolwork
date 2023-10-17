@@ -14,6 +14,6 @@ public class Square implements GetArea {
     }
 
     public String toString() {
-        return "Square area is " + getArea();
+        return "Area of the square is: " + getArea();
     }
 }
