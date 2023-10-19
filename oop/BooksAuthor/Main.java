@@ -1,6 +1,7 @@
 package BooksAuthor;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -92,12 +93,15 @@ public class Main {
     }
 
     public static void bookAndAuthor(ArrayList<Book> books) {
+        System.out.println("Books\t\tAuthors");
+
         for (Book book : books) {
-            System.out.println(book.toString());
-            System.out.println("Authors -----------------");
-            for (Author author : book.getAuthors()) {
-                if (author.getName() != null) {
-                    System.out.println(author.toString());
+            System.out.print(book.getTitle() + "\t\t");
+            List<Author> authors = book.getAuthors();
+            for (int i = 0; i < authors.size(); i++) {
+                System.out.print(authors.get(i).getName());
+                if (i != authors.size() - 1) {
+                    System.out.print(", ");
                 }
             }
             System.out.println();
@@ -105,13 +109,14 @@ public class Main {
     }
 
     public static void authorAndBook(ArrayList<Person> arrAuthor, ArrayList<Book> arrBooks) {
+        System.out.println("Authors\t\tBooks");
+
         for (Person author : arrAuthor) {
-            System.out.println(author.toString());
-            System.out.println("Books -----------------");
+            System.out.print(author.getName() + "\t\t");
             for (Book book : arrBooks) {
                 for (Author searchAuthor : book.getAuthors()) {
                     if (searchAuthor.getName().equals(author.getName())) {
-                        System.out.println(book.toString());
+                        System.out.print(book.getTitle() + ", ");
                     }
                 }
             }
