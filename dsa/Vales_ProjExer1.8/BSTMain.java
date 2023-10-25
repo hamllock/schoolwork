@@ -1,6 +1,5 @@
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class BSTMain {
     public static void main(String[] args) {
@@ -21,9 +20,9 @@ public class BSTMain {
             return;
         }
 
-        Scanner input = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         System.out.print("Enter a number to search: ");
-        int searchNum = input.nextInt();
+        int searchNum = sc.nextInt();
 
         int nodesChecked = bst.search(searchNum);
 
@@ -34,6 +33,6 @@ public class BSTMain {
         else
             System.out.println("The number " + searchNum + " was found after checking " + nodesChecked + " nodes.");
 
-        input.close();
+        sc.close();
     }
 }

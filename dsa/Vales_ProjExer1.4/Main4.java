@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
 
-public class Main {
+public class Main4 {
     public static void main(String[] args) {
         IntSkipList skipList = new IntSkipList();
         try (BufferedReader reader = new BufferedReader(new FileReader("data.txt"))) {
