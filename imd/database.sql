@@ -22,8 +22,8 @@ CREATE TABLE employee (
     salary DECIMAL(10,2) NOT NULL
 );
 
-CREATE TABLE invoice (
-    invoice_id INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE transactions (
+    transaction_id INT PRIMARY KEY AUTO_INCREMENT,
     customer_id INT NOT NULL,
     employee_id INT NOT NULL,
     transaction_type VARCHAR(20) NOT NULL,
@@ -48,13 +48,71 @@ CREATE TABLE vehicle (
     price DECIMAL(10,2) DEFAULT 0.00
 );
 
-CREATE TABLE parts (
+CREATE TABLE parts_inventory (
     part_id INT PRIMARY KEY AUTO_INCREMENT,
     part_name VARCHAR(50) NOT NULL,
     part_description VARCHAR(100) NOT NULL,
     part_price DECIMAL(10,2) NOT NULL,
     part_quantity INT NOT NULL
 );
+
+CREATE TABLE service_history (
+    service_id INT PRIMARY KEY AUTO_INCREMENT,
+    car_id INT NOT NULL,
+    service_type VARCHAR(50) NOT NULL,
+    service_date DATE NOT NULL,
+    service_cost DECIMAL(10,2) NOT NULL,
+    service_description VARCHAR(100),
+    FOREIGN KEY (car_id) REFERENCES vehicle(car_id)
+);
+
+CREATE TABLE car_inventory (
+    inventory_id INT PRIMARY KEY AUTO_INCREMENT,
+    car_id INT NOT NULL,
+    quantity INT NOT NULL,
+    location VARCHAR(50) NOT NULL,
+    FOREIGN KEY (car_id) REFERENCES vehicle(car_id)
+);
+
+CREATE TABLE customer_orders (
+    order_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT NOT NULL,
+    order_date DATE NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+);
+
+CREATE TABLE sales_activity (
+    activity_id INT PRIMARY KEY AUTO_INCREMENT,
+    employee_id INT NOT NULL,
+    customer_id INT NOT NULL,
+    activity_type VARCHAR(50) NOT NULL,
+    activity_date DATE NOT NULL,
+    FOREIGN KEY (employee_id) REFERENCES employee(employee_id),
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+);
+
+CREATE TABLE service_appointments (
+    appointment_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT NOT NULL,
+    car_id INT NOT NULL,
+    appointment_date DATE NOT NULL,
+    appointment_type VARCHAR(50) NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+    FOREIGN KEY (car_id) REFERENCES vehicle(car_id)
+);
+
+CREATE TABLE part_sales (
+    sale_id INT PRIMARY KEY AUTO_INCREMENT,
+    part_id INT NOT NULL,
+    customer_id INT NOT NULL,
+    sale_date DATE NOT NULL,
+    quantity_sold INT NOT NULL,
+    sale_amount DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (part_id) REFERENCES parts_inventory(part_id),
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+);
+
 
 INSERT INTO vehicle (brand, model, variant, bodyType, transmission, fuelType, year, color, price)
 VALUES 
@@ -107,7 +165,7 @@ VALUES
   ('Cashier', 'Emily', 'Clark', 'emily.clark7@example.com', '+78901234567', '404 Birch St', 'Davao City', '8000', 55000),
   ('Admin', 'David', 'Garcia', 'david.garcia8@example.com', '+89012345678', '505 Redwood St', 'Davao City', '8000', 52000);
 
-INSERT INTO parts (part_name, part_description, part_price, part_quantity)
+INSERT INTO parts_inventory (part_name, part_description, part_price, part_quantity)
 VALUES
   ('Widget A', 'High-quality widget for various applications', 9.99, 100),
   ('Gizmo B', 'Advanced gizmo with innovative features', 19.99, 50),
@@ -120,7 +178,7 @@ VALUES
   ('Gadget I', 'Sleek gadget with a modern design', 24.99, 60),
   ('Contraption J', 'Ingenious contraption for various projects', 39.99, 20);
 
-INSERT INTO invoice (customer_id, employee_id, transaction_type, sale_date, total, payment_method, payment_date)
+INSERT INTO transactions (customer_id, employee_id, transaction_type, sale_date, total, payment_method, payment_date)
 VALUES
   (1, 1, 'Car Sale', '2023-11-01', 1856000.00, 'Credit Card', '2023-11-01'),
   (2, 2, 'Car Sale', '2023-11-02', 2115000.00, 'Cash', '2023-11-02'),
@@ -132,3 +190,49 @@ VALUES
   (8, 6, 'Car Maintenance', '2023-11-08', 2000.00, 'Credit Card', '2023-11-08'),
   (9, 3, 'Car Sale', '2023-11-09', 245000.00, 'Cash', '2023-11-09'),
   (10, 1, 'Car Sale', '2023-11-10', 399000.00, 'Credit Card', '2023-11-10');
+
+  INSERT INTO service_history (car_id, service_type, service_date, service_cost, service_description)
+VALUES
+  (1, 'Oil Change', '2023-10-15', 500.00, 'Regular oil change service.'),
+  (2, 'Brake Inspection', '2023-10-20', 200.00, 'Check and replace brake pads.'),
+  (2, 'Tire Rotation', '2023-10-25', 100.00, 'Rotate tires for even wear.'),
+  (2, 'Oil Change', '2023-10-30', 500.00, 'Regular oil change service.'),
+  (4, 'Brake Repair', '2023-11-05', 800.00, 'Replace worn-out brake components.'),
+  (6, 'Engine Tune-Up', '2023-11-10', 600.00, 'Comprehensive engine maintenance.'),
+  (7, 'Oil Change', '2023-11-15', 500.00, 'Regular oil change service.');
+
+INSERT INTO car_inventory (car_id, quantity, location)
+VALUES
+  (1, 5, 'Main Showroom'),
+  (2, 3, 'Main Showroom'),
+  (3, 2, 'Main Showroom'),
+  (4, 6, 'Secondary Showroom'),
+  (5, 4, 'Secondary Showroom'),
+  (6, 3, 'Service Center');
+
+INSERT INTO customer_orders (customer_id, order_date, status)
+VALUES
+  (1, '2023-11-01', 'Pending'),
+  (2, '2023-11-02', 'In Progress'),
+  (3, '2023-11-03', 'Completed'),
+  (4, '2023-11-04', 'In Progress'),
+  (5, '2023-11-05', 'Pending');
+
+INSERT INTO sales_activity (employee_id, customer_id, activity_type, activity_date)
+VALUES
+  (1, 1, 'Test Drive', '2023-11-01'),
+  (2, 2, 'Sales Call', '2023-11-02'),
+  (3, 3, 'Email Inquiry', '2023-11-03'),
+  (1, 4, 'Test Drive', '2023-11-04'),
+  (4, 5, 'Sales Call', '2023-11-05');
+
+INSERT INTO service_appointments (customer_id, car_id, appointment_date, appointment_type)
+VALUES
+  (1, 1, '2023-11-10', 'Oil Change'),
+  (2, 2, '2023-11-12', 'Brake Inspection'),
+  (3, 3, '2023-11-14', 'Tire Rotation');
+
+INSERT INTO part_sales (part_id, customer_id, sale_date, quantity_sold, sale_amount)
+VALUES
+  (1, 1, '2023-11-20', 3, 29.97);
+
