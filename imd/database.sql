@@ -18,7 +18,7 @@ CREATE TABLE employee (
     phone VARCHAR(20) NOT NULL,
     address VARCHAR(100) NOT NULL,
     city VARCHAR(50) NOT NULL,
-    zip_code VARCHAR(10) NOT NULL
+    zip_code VARCHAR(10) NOT NULL,
     salary DECIMAL(10,2) NOT NULL
 );
 
@@ -72,7 +72,7 @@ VALUES
   ('Toyota', 'Hilux', 'GR Sport', 'Pickup Truck', 'Automatic', 'Diesel', 2023, 'Red', 2166000.00),
   ('Toyota', 'Innova', 'J', 'MPV', 'Manual', 'Diesel', 2023, 'White', 1236000.00),
   ('Toyota', 'Innova', 'E', 'MPV', 'Manual', 'Diesel', 2023, 'Black', 1340000.00),
-  ('Toyota', 'Innova', 'G', 'MPV', 'Manual', 'Diesel', 2023, 'Red', 1572000.00),
+  ('Toyota', 'Innova', 'G', 'MPV', 'Manual', 'Diesel', 2023, 'Red', 1572000.00);
 
 INSERT INTO customer (first_name, last_name, email, phone, address, city, zip_code)
 VALUES
