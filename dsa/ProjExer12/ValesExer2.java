@@ -1,5 +1,7 @@
+package ProjExer12;
+
 import java.io.*;
-import java.util.*; 
+import java.util.*;
 
 public class ValesExer2 {
     public static void main(String[] args) {
@@ -10,7 +12,7 @@ public class ValesExer2 {
             FileReader fr = new FileReader("input.txt");
             Scanner sc = new Scanner(fr);
             sc.useDelimiter(",\\s*");
-            while(sc.hasNext()) {
+            while (sc.hasNext()) {
                 score.add(sc.nextInt());
             }
             sc.close();
@@ -20,14 +22,14 @@ public class ValesExer2 {
 
         int arr[] = new int[8];
         for (int i = 0; i < score.size(); i++) {
-            for (int j = 0; j < 8; j++){
-                if (score.get(i) >= 25 * j && score.get(i) < 25 + (25 * j)){ 
+            for (int j = 0; j < 8; j++) {
+                if (score.get(i) >= 25 * j && score.get(i) < 25 + (25 * j)) {
                     arr[j] += 1;
-                } 
+                }
             }
 
             if (score.get(i) == 200) {
-                    arr[7] += 1;
+                arr[7] += 1;
             }
         }
 

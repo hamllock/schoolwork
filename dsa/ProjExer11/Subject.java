@@ -1,20 +1,20 @@
-package ProgExer1dot1;
+package ProjExer11;
 
 public class Subject {
-    
+
     private String subjCode;
     private int credUnits;
-    
-    public Subject (String s, int c){
+
+    public Subject(String s, int c) {
         this.subjCode = s;
         this.credUnits = c;
     }
-    
-    public String getCode () {
+
+    public String getCode() {
         return subjCode;
     }
-    
-    public int getUnits () {
+
+    public int getUnits() {
         return credUnits;
     }
 }

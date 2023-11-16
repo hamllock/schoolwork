@@ -1,3 +1,5 @@
+package ProjExer18;
+
 public class BSTNode {
     int key;
     BSTNode left, right;

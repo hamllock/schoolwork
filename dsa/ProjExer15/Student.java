@@ -1,4 +1,4 @@
-package onepointfive;
+package ProjExer15;
 
 public class Student {
     private String lastName;

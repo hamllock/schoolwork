@@ -1,3 +1,5 @@
+package ProjExer17;
+
 import java.util.Scanner;
 
 public class Vales_Recursion {

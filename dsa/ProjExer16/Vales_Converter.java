@@ -1,3 +1,5 @@
+package ProjExer16;
+
 import java.util.*;
 
 public class Vales_Converter {
