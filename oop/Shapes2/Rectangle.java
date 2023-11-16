@@ -1,3 +1,5 @@
+package Shapes2;
+
 public class Rectangle implements GetArea {
     // +length(double)
     // +width(double)

@@ -1,3 +1,5 @@
+package Shapes2;
+
 public class Square implements GetArea {
     // +sides(double)
     // +Create your getArea override, area of square is sides2

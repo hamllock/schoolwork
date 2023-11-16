@@ -1,3 +1,5 @@
+package Shapes2;
+
 public class Triangle implements GetArea {
     // +base(double)
     // +height(double)

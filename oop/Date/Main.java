@@ -1,4 +1,4 @@
-package oop.Date;
+package Date;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
