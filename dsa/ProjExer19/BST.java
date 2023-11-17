@@ -1,5 +1,8 @@
 package ProjExer19;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BST {
     private Node root;
     private int nodesChecked;
@@ -28,35 +31,20 @@ public class BST {
         return root;
     }
 
-    public int search(Software key) {
-        nodesChecked = 0;
-        return searchRec(root, key);
+    public List<String> inOrderTraversal() {
+        return inOrderTraversalRec(root);
     }
 
-    private int searchRec(Node root, Software key) {
-        nodesChecked++;
-
-        if (root.key.getKey().equals(key.getKey()))
-            return nodesChecked;
-
-        if (root.key.getKey().compareTo(key.getKey()) > 0)
-            return searchRec(root.left, key);
-
-        return searchRec(root.right, key);
-    }
-
-    public void inOrderTraversal() {
-        System.out.printf("%-30s %-10s %-10s %-10s%n", "Name", "Version", "Quantity", "Price");
-        inOrderTraversalRec(root);
-    }
-
-    private void inOrderTraversalRec(Node root) {
+    private List<String> inOrderTraversalRec(Node root) {
+        List<String> result = new ArrayList<>();
         if (root != null) {
-            inOrderTraversalRec(root.left);
-            System.out.printf("%-30s %-10s %-10d %-10.2f%n", root.key.getName(), root.key.getVersion(),
-                    root.key.getQuantity(), root.key.getPrice());
-            inOrderTraversalRec(root.right);
+            result.addAll(inOrderTraversalRec(root.left));
+            String line = root.key.getName() + ", " + root.key.getVersion() + ", " + root.key.getQuantity() + ", "
+                    + root.key.getPrice();
+            result.add(line);
+            result.addAll(inOrderTraversalRec(root.right));
         }
+        return result;
     }
 
     public void deleteKey(Software key) {

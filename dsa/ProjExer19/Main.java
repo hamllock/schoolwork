@@ -8,6 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
         BST packages = new BST();
+        readFromFile(packages);
         chooseSelection(packages);
     }
 
@@ -19,14 +20,13 @@ public class Main {
 
         while (selection) {
             // clearScreen();
-            readFromFile(packages);
             System.out.println("===============================");
             System.out.println(">> Select an option:");
             System.out.println("1. Display Packages");
-            System.out.println("2. Add New Software");
-            System.out.println("3. Update Software Information");
-            System.out.println("4. Edit Software Quantity");
-            System.out.println("5. Delete Package");
+            System.out.println("2. Add New Item");
+            System.out.println("3. Edit Inventory");
+            System.out.println("4. Delete Package");
+            System.out.println("5. Exit and Save");
             System.out.print(">> ");
 
             try {
@@ -47,15 +47,13 @@ public class Main {
                     addSoftwares(packages);
                     break;
                 case 3:
-
+                    editSoftwares(packages);
                     break;
                 case 4:
-
+                    deletePackage(packages);
                     break;
                 case 5:
-
-                    break;
-                case 6:
+                    writeToFile(packages);
                     selection = false;
                     break;
                 default:
@@ -63,6 +61,22 @@ public class Main {
             }
         }
 
+    }
+
+    public static void writeToFile(BST packages) {
+        try (BufferedWriter writer = new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream("packages.txt", false)))) {
+            List<String> softwareDetails = packages.inOrderTraversal();
+            for (String details : softwareDetails) {
+                String[] parts = details.split(", ");
+                for (String part : parts) {
+                    writer.write(part);
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void readFromFile(BST packages) {
@@ -73,7 +87,7 @@ public class Main {
             while ((line = reader.readLine()) != null) {
                 String name = line;
                 String version = reader.readLine();
-                if (version.equals("0.0")) {
+                if (version.equals("-")) {
                     version = "";
                 }
                 int quantity = Integer.parseInt(reader.readLine());
@@ -88,44 +102,62 @@ public class Main {
     }
 
     public static void displayPackages(BST packages) {
-        packages.inOrderTraversal();
+        System.out.printf("%-30s %-10s %-10s %-10s%n", "Name", "Version", "Quantity", "Price");
+        List<String> softwareDetails = packages.inOrderTraversal();
+        for (String details : softwareDetails) {
+            String[] parts = details.split(", ");
+            System.out.printf("%-30s %-10s %-10d %-10.2f%n", parts[0], parts[1], Integer.parseInt(parts[2]),
+                    Double.parseDouble(parts[3]));
+        }
     }
 
     public static void addSoftwares(BST packages) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter software name:");
-        String name = scanner.nextLine();
+        String name = sc.nextLine();
 
         System.out.println("Enter software version:");
-        String version = scanner.nextLine();
+        String version = sc.nextLine();
 
-        System.out.println("Enter software quantity:");
-        int quantity = scanner.nextInt();
+        System.out.println("Enter how many packages are available:");
+        int quantity = sc.nextInt();
 
-        System.out.println("Enter software price:");
-        double price = scanner.nextDouble();
+        System.out.println("Enter the package's price:");
+        double price = sc.nextDouble();
 
         Software software = new Software(name, version, quantity, price);
         packages.insert(software);
     }
 
-    public static void updateSoftwareInfo(BST packages) {
+    public static void editSoftwares(BST packages) {
+        Scanner sc = new Scanner(System.in);
 
-    }
+        System.out.println("Enter software name to edit:");
+        String name = sc.nextLine();
 
-    public static void editSoftwareQuantity(BST packages) {
+        System.out.println("Enter software version to edit:");
+        String version = sc.nextLine();
 
+        System.out.println("Enter how many packages are available:");
+        int quantity = sc.nextInt();
+
+        System.out.println("Enter the package's new price:");
+        double price = sc.nextDouble();
+
+        Software software = new Software(name, version, quantity, price);
+        packages.deleteKey(software);
+        packages.insert(software);
     }
 
     public static void deletePackage(BST packages) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter software name to delete:");
-        String name = scanner.nextLine();
+        String name = sc.nextLine();
 
         System.out.println("Enter software version to delete:");
-        String version = scanner.nextLine();
+        String version = sc.nextLine();
 
         Software software = new Software(name, version, 0, 0.0);
         packages.deleteKey(software);
