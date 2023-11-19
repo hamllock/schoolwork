@@ -65,12 +65,19 @@ public class Main {
 
     public static void writeToFile(BST packages) {
         try (BufferedWriter writer = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream("packages.txt", false)))) {
+                new OutputStreamWriter(new FileOutputStream("software.txt", false)))) {
             List<String> softwareDetails = packages.inOrderTraversal();
             for (String details : softwareDetails) {
                 String[] parts = details.split(", ");
-                for (String part : parts) {
-                    writer.write(part);
+                if (Integer.parseInt(parts[2]) == 0) {
+                    continue;
+                }
+                for (int i = 0; i < parts.length; i++) {
+                    if (i == 1 && (parts[i] == null || parts[i].isEmpty())) {
+                        writer.write("-");
+                    } else {
+                        writer.write(parts[i]);
+                    }
                     writer.newLine();
                 }
             }
@@ -81,7 +88,7 @@ public class Main {
 
     public static void readFromFile(BST packages) {
         try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(new FileInputStream("packages.txt"), StandardCharsets.UTF_8))) {
+                new InputStreamReader(new FileInputStream("software.txt"), StandardCharsets.UTF_8))) {
             String line;
 
             while ((line = reader.readLine()) != null) {
@@ -119,6 +126,11 @@ public class Main {
 
         System.out.println("Enter software version:");
         String version = sc.nextLine();
+        Software checkIfExists = new Software(name, version, 0, 0.0);
+        if (packages.search(checkIfExists)) {
+            System.out.println(">> Software already exists.");
+            return;
+        }
 
         System.out.println("Enter how many packages are available:");
         int quantity = sc.nextInt();
@@ -138,6 +150,11 @@ public class Main {
 
         System.out.println("Enter software version to edit:");
         String version = sc.nextLine();
+        Software checkIfExists = new Software(name, version, 0, 0.0);
+        if (!packages.search(checkIfExists)) {
+            System.out.println(">> Software does not exist.");
+            return;
+        }
 
         System.out.println("Enter how many packages are available:");
         int quantity = sc.nextInt();
@@ -160,6 +177,11 @@ public class Main {
         String version = sc.nextLine();
 
         Software software = new Software(name, version, 0, 0.0);
+        if (!packages.search(software)) {
+            System.out.println(">> Software does not exist.");
+            return;
+        }
+
         packages.deleteKey(software);
     }
 
