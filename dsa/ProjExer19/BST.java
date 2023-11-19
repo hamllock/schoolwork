@@ -47,6 +47,26 @@ public class BST {
         return result;
     }
 
+    public boolean search(Software key) {
+        nodesChecked = 0;
+        return searchRec(root, key) != null;
+    }
+
+    private Node searchRec(Node root, Software key) {
+        nodesChecked++;
+
+        if (root == null)
+            return null;
+
+        if (root.key.getKey().equals(key.getKey()))
+            return root;
+
+        if (root.key.getKey().compareTo(key.getKey()) > 0)
+            return searchRec(root.left, key);
+
+        return searchRec(root.right, key);
+    }
+
     public void deleteKey(Software key) {
         root = deleteRec(root, key);
     }
