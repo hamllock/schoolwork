@@ -10,6 +10,7 @@ class Graph {
 
     public void addVertex(String vertex) {
         adjacencyList.putIfAbsent(vertex, new ArrayList<>());
+        incidenceMatrix.putIfAbsent(vertex, new HashMap<>());
     }
 
     public void addEdge(String source, String destination) {
