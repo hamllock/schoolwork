@@ -59,7 +59,11 @@ class Graph {
         for (String vertex : adjacencyList.keySet()) {
             System.out.printf("%-3s", vertex);
             for (String edge : edges) {
-                System.out.printf("%-5d", incidenceMatrix.get(vertex).getOrDefault(edge, 0));
+                if (edge.contains(vertex)) {
+                    System.out.printf("%-5d", 1);
+                } else {
+                    System.out.printf("%-5d", 0);
+                }
             }
             System.out.println();
         }
