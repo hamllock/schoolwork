@@ -28,6 +28,10 @@ class Graph {
         incidenceMatrix = new int[vertexCount][edgeCount];
     }
 
+    public String[] getVertices() {
+        return vertices;
+    }
+
     public void readGraphFromFile(String filename) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filename));
         String line;
@@ -64,6 +68,7 @@ class Graph {
                 traversalResult.append(vertices[currentVertex]).append("-");
 
                 List<Integer> neighbors = getNeighbors(currentVertex);
+                Collections.reverse(neighbors);
                 for (int neighbor : neighbors) {
                     if (!visited[neighbor]) {
                         stack.push(neighbor);
